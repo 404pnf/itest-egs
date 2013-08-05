@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html lang="en-US" manifest="offline.manifest">
+<head>
+<meta charset=utf-8 />
+<meta name="format-detection" content="telephone=no"/>
+
+<title> 爱考试</title>
+
+<link href="style/base.css" rel="stylesheet" type="text/css">
+
+<script  type="text/javascript" src="../libs/jquery/jquery-1.4.2.js"></script>
+<script  type="text/javascript" src="../libs/jquery/jquery.getURLparam.js"></script>
+
+<script  type="text/javascript" src="js/jquery.extend.js"></script>
+<script  type="text/javascript" src="../libs/tx/txgenerictools.js" ></script>
+
+<script  type="text/javascript" src="js/common.js"></script>
+
+<script type="text/javascript">
+var uid = tx.setCookie("iks_uid",null), username = tx.setCookie("iks_username",null), userroleid = tx.setCookie("iks_userroleid",null);
+var destination='';
+var de = $.query.get('destination');
+
+if(de.length>0)
+	destination = de;
+else
+	destination = document.referrer;
+
+$(function(){
+	$("#username").focus();
+	$("#username").keydown(function(e){
+		if(e.keyCode == 13){
+			$("#username").blur();
+			$("#password").focus();
+		}
+
+	});
+	$("#password").keydown(function(e){
+		if(e.keyCode == 13)
+			login();
+	})
+
+});
+function login()
+{
+	var checkStatus = checkRequired();
+	if(!checkStatus)	return false;
+
+	$('#msg').html('正在提交...');
+
+	var name = $("#username").val();
+	var pass = $("#password").val();
+
+	var url = "/itest/egs/mobile.php?c=user&f=itest";
+	var postData = {username:name, password:pass};
+
+	postjson(url, postData, "登录",function(data){  //请求成功后回调函数。
+
+			if (data != undefined)
+			{
+
+				if(data.status == 0)
+					$('#msg').html('用户名或密码错误');
+				else if(data.status == 1){
+
+					tx.setCookie("iks_uid", data.uid);
+					tx.setCookie("iks_username", data.username);
+					tx.setCookie("iks_userroleid", data.role);
+
+					if(destination.length>0)
+						location.href = destination;
+					else
+						location.href = "index.html";
+					//如果是弹出框，怎么做
+				}
+				else
+					$('#msg').html('未知错误，请联系管理员'+data);
+
+			}
+			else
+				$('#msg').html('数据为空:'+data);
+
+
+	});
+	return false;
+
+}
+
+function checkRequired(){
+	var status = true;
+	$("input[required=required]").each(function(){
+		$(this).next(".tip").remove();
+		var value = $(this).val();
+		if($.trim(value).length<=0){
+			$(this).after("<div class='tip'>*</div>");
+			status = false;
+		}
+	});
+
+	return status;
+}
+
+$(function(){
+	$("input[required=required]").blur(function(){
+		$(this).next(".tip").remove();
+		var value = $(this).val();
+		if($.trim(value).length<=0){
+			$(this).after("<div class='tip'>*</div>");
+		}
+	});
+
+});
+
+
+
+</script>
+
+</head>
+
+<body>
+	<section class="wrap">
+		<header id="header">
+			<a href="index.html" class="logo"></a>
+		</header>
+		<section id="container">
+
+		<form id="login" autocomplete="off" action="">
+			<table>
+			<tr>
+			<td></td>
+			<td colspan=2><div id="msg"></div></td>
+			</tr>
+
+			<tr>
+			<td align="right"><label for="username">用户名：</label></td>
+			<td colspan=2><input id="username" tabindex="1" name="username" type="text" placeholder="请输入您的用户名" /></td>
+			</tr>
+
+			<tr>
+			<td align="right"><label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;码：</label></td>
+			<td colspan=2><input id="password" tabindex="2" name="password" type="password" placeholder="请输入您的密码"/></td>
+			</tr>
+
+			<tr>
+			<td colspan=3 class="td_btn" align="center"><input id="loginbtn" name="loginbtn" type="button" onclick="login()" value="登 录"/><input id="canclebtn" name="canclebtn" type="button" onclick="javascript:history.go(-1)" value="取 消"/></td>
+			</tr>
+
+			<tr>
+			<td colspan=3 class="tip">(可登录itest.com网址，获得用户名，设置新密码，这段现在是假文字)</td>
+			<td></td>
+			</tr>
+
+			</table>
+
+		</form>
+		</section>
+	</section>
+
+</body>
+</html>

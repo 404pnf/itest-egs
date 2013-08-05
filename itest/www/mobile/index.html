@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="en-US" _manifest="offline.manifest">
+<head>
+<meta charset=utf-8 />
+<meta name="format-detection" content="telephone=no"/>
+
+<title> 爱考试</title>
+
+<link href="style/base.css" rel="stylesheet" type="text/css">
+
+<script  type="text/javascript" src="../libs/jquery/jquery-1.4.2.js"></script>
+<script  type="text/javascript" src="../libs/jquery/jquery.getURLparam.js"></script>
+
+<script  type="text/javascript" src="js/jquery.extend.js"></script>
+<script  type="text/javascript" src="../libs/tx/txgenerictools.js" ></script>
+
+<script  type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript">
+var hostname = location.hostname;
+$(function(){
+	if(hostname=="m.itest.fltrp.com")
+		$(".choice_school").show();
+});
+</script>
+</head>
+<body>
+	<section class="wrap">
+		<header id="header">
+			<figure class="usermsg fright">
+				<div class="userimg fleft"></div>
+				<a href="login.html" class="username">登录</a>
+			</figure>
+			<a href="index.html" class="logo"></a>
+		</header>
+		<section id="container">
+			<section class="main">
+				<figure class="cols test">
+					<a href="javascript:void(0)" data-gotourl="examtype.html" data-needlogin="0">
+						<img src="images/ceshi.png" alt="" />
+						<span>测试</span>
+					</a>
+				</figure>
+				<figure class="cols news">
+					<a href="javascript:void(0)"  data-gotourl="news.html" data-needlogin="0">
+						<img src="images/zixun.png" alt="" />
+						<span>资讯</span>
+					</a>
+				</figure>
+				<figure class="cols test_rec">
+					<a href="javascript:void(0)"  data-gotourl="resulttype.html" data-needlogin="1">
+						<img src="images/ceshijilv.png" alt="" />
+						<span>测试记录</span>
+					</a>
+				</figure>
+				<figure class="cols err_rec">
+					<a href="javascript:void(0)"  data-gotourl="userwrong.html" data-needlogin="1">
+						<img src="images/cuoti.png" alt="" />
+						<span>错题库</span>
+					</a>
+				</figure>
+			</section>
+			<div class="choice_school"><a href="schoollist.html">选择学校</a></div>
+		</section>
+	</section>
+</body>
+</html>
