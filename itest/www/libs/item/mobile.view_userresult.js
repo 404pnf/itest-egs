@@ -411,7 +411,7 @@ function resultoutput(subques_array,options){
 					answer_feedback='<div class="answer_analyse">   <label>[试题材料]</label> <span>'+answer["feedback"]+'</span>    </div>  ';
 			});
 
- 			if((answer["feedback"]==undefined || answer["feedback"]==null || answer["feedback"]=='')&&(file_status==1&&fileurl.length>0))
+ 			if((answers_array[0]["feedback"]==undefined || answers_array[0]["feedback"]==null || answers_array[0]["feedback"]=='')&&(file_status==1&&fileurl.length>0))
 					answer_feedback='<div class="answer_analyse">   <label>[试题材料]</label> <span>无</span>    </div>  ';
 			ques_answers ='<div class="ques_answer">'+answer_feedback+'</div>';
 
