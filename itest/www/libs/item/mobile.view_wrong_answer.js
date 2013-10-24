@@ -236,7 +236,6 @@ function resultoutput_wronganswer(subques_array,options){
 				if(answer["feedback"]!=undefined && answer["feedback"]!=null && answer["feedback"]!='')
 					answer_feedback='<div class="answer_analyse">   <label>[试题材料]</label> <span>'+answer["feedback"]+'</span>    </div>  ';
 			});
-alert(answers_array);
 			 if((answers_array==undefined || answers_array==null || answers_array=='')&&(file_status==1&&fileurl.length>0))
                                 answer_feedback='<div class="answer_analyse">   <label>[试题材料]</label> <span>无</span>    </div>  ';
                         ques_answers ='<div class="ques_answer">'+answer_feedback+'</div>';
